@@ -1,0 +1,9 @@
+@tailwind base;
+@tailwind components;
+@tailwind utilities;
+  
+* {
+    transition: all;
+    scroll-behavior: smooth;
+    box-sizing: border-box;
+}
