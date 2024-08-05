@@ -25,7 +25,7 @@ import {
 } from "@/components/ui/popover";
 import { CalendarIcon } from "lucide-react";
 import { cn } from "@/lib/utils";
-import { experience, lokasiPenjemputan, penginapan } from "@/data/data";
+// import { experience, lokasiPenjemputan, penginapan } from "@/data/data";
 import { FieldValues, UseFormReturn } from "react-hook-form";
 import { format } from "date-fns";
 import { useExperienceHooks } from "@/hooks/experience-hook";
@@ -123,17 +123,17 @@ function OrderFormCTA({
                     </SelectTrigger>
                   </FormControl>
                   <SelectContent>
-                    {lokasiPenjemputan.map((lokasi, i) => (
+                    {/* {lokasiPenjemputan.map((lokasi, i) => (
                       <SelectItem value={lokasi.value} key={i}>
                         {lokasi.label}
                       </SelectItem>
-                    ))}
+                    ))} */}
                   </SelectContent>
                 </Select>
-                <FormDescription className="text-slate-300">
+                {/* <FormDescription className="text-slate-300">
                   Pilih lokasi penjemputan anda diantara{" "}
                   {lokasiPenjemputan.length} lokasi tersebut
-                </FormDescription>
+                </FormDescription> */}
                 <FormMessage />
               </FormItem>
             )}
