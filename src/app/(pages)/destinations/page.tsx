@@ -84,14 +84,14 @@ const Destinations = () => {
   }
 
   async function onSubmit(data: DestinationFilterType) {
-    const query = new URLSearchParams({
-      destinasi: data.destinasi,
-      lokasi: data.lokasi,
-      minHarga: data.minHarga.toString(),
-      maxHarga: data.maxHarga.toString(),
-    }).toString();
+    // const query = new URLSearchParams({
+    //   destinasi: data.destinasi,
+    //   lokasi: data.lokasi,
+    //   minHarga: data.minHarga.toString(),
+    //   maxHarga: data.maxHarga.toString(),
+    // }).toString();
 
-    router.push(`?${query}`, { scroll: false });
+    // router.push(`?${query}`, { scroll: false });
     // setCurrentPage(1);
   }
 
