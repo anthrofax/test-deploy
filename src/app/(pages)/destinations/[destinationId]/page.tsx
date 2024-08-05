@@ -54,54 +54,54 @@ function DestinationDetails() {
     defaultValue: 1,
   });
 
-  // async function handlePayment(data: FieldValues) {
-  //   try {
-  //     if (!dataDestinasi) return toast.error("Data destinasi tidak ditemukan");
+  async function handlePayment(data: FieldValues) {
+    try {
+      if (!dataDestinasi) return toast.error("Data destinasi tidak ditemukan");
 
-  //     if (Number(data.qty) > 2 && data.penginapan === "sikembang")
-  //       return toast.error(
-  //         "Penginapan di Sikembang Glamping hanya dapat menampung maksimum 2 orang"
-  //       );
+      if (Number(data.qty) > 2 && data.penginapan === "sikembang")
+        return toast.error(
+          "Penginapan di Sikembang Glamping hanya dapat menampung maksimum 2 orang"
+        );
 
-  //     toast.success("Data berhasil terkirim");
-  //     console.log(data);
-  //     let totalBiaya = 0;
+      toast.success("Data berhasil terkirim");
+      console.log(data);
+      let totalBiaya = 0;
 
-  //     const biayaExperience = experience.reduce((acc, experienceItem) => {
-  //       if (data.experience.includes(experienceItem.value))
-  //         return acc + experienceItem.harga;
+      const biayaExperience = experience.reduce((acc, experienceItem) => {
+        if (data.experience.includes(experienceItem.value))
+          return acc + experienceItem.harga;
 
-  //       return 0;
-  //     }, 0);
+        return 0;
+      }, 0);
 
-  //     const biayaPenginapan =
-  //       penginapan.find(
-  //         (penginapanItem) => penginapanItem.value === data.penginapan
-  //       )?.harga || 0;
+      const biayaPenginapan =
+        penginapan.find(
+          (penginapanItem) => penginapanItem.value === data.penginapan
+        )?.harga || 0;
 
-  //     totalBiaya =
-  //       dataDestinasi.price * Number(data.qty) +
-  //       biayaExperience +
-  //       biayaPenginapan * Number(data.masaPerjalanan);
+      totalBiaya =
+        dataDestinasi.price * Number(data.qty) +
+        biayaExperience +
+        biayaPenginapan * Number(data.masaPerjalanan);
 
-  //     await redirectToCheckout({
-  //       destinationId: dataDestinasi.destinationId,
-  //       experience: data.experience,
-  //       hargaDestinasi: dataDestinasi.price,
-  //       lokasiPenjemputan: data.lokasiPenjemputan,
-  //       masaPerjalanan: data.masaPerjalanan,
-  //       nama: data.nama,
-  //       namaDestinasi: dataDestinasi.destinationName,
-  //       nomorHp: data.nomorHp,
-  //       penginapan: data.penginapan,
-  //       qty: data.qty,
-  //       tanggalPerjalanan: data.tanggalPerjalanan,
-  //       totalBiaya,
-  //     });
-  //   } catch (err) {
-  //     toast.error("Pembayaran gagal");
-  //   }
-  // }
+      await redirectToCheckout({
+        destinationId: dataDestinasi.destinationId,
+        experience: data.experience,
+        hargaDestinasi: dataDestinasi.price,
+        lokasiPenjemputan: data.lokasiPenjemputan,
+        masaPerjalanan: data.masaPerjalanan,
+        nama: data.nama,
+        namaDestinasi: dataDestinasi.destinationName,
+        nomorHp: data.nomorHp,
+        penginapan: data.penginapan,
+        qty: data.qty,
+        tanggalPerjalanan: data.tanggalPerjalanan,
+        totalBiaya,
+      });
+    } catch (err) {
+      toast.error("Pembayaran gagal");
+    }
+  }
 
   useEffect(() => {
     if (Object.keys(form.formState.errors).length > 0) {
@@ -187,7 +187,7 @@ function DestinationDetails() {
 
             <OrderFormCTA
               form={form}
-              // handlePayment={handlePayment}
+              handlePayment={handlePayment}
               masaPerjalanan={masaPerjalanan}
               namaDestinasi={dataDestinasi.destinationName}
               className="lg:hidden"
@@ -195,7 +195,7 @@ function DestinationDetails() {
           </div>
           <OrderFormCTA
             form={form}
-            // handlePayment={handlePayment}
+            handlePayment={handlePayment}
             masaPerjalanan={masaPerjalanan}
             namaDestinasi={dataDestinasi.destinationName}
             className="hidden lg:block lg:col-span-4 sticky top-20"
