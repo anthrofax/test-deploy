@@ -7,29 +7,27 @@ import { useDestinationHook } from "@/hooks/destination-hooks";
 import { Destination } from "@prisma/client";
 import Card from "@/components/destination-card/card";
 import Skeleton from "react-loading-skeleton";
-import { useRouter, useSearchParams } from "next/navigation";
+import { useRouter as useRouterNav, useSearchParams } from "next/navigation";
 import { useForm } from "react-hook-form";
 import { Form, FormControl, FormField, FormItem } from "@/components/ui/form";
 import toast from "react-hot-toast";
 import { DestinationFilterType } from "./type";
 import { Pagination } from "@/components/ui/pagination";
 import ImageSlider from "@/components/slider/slider";
+import { useRouter } from "next/router";
 
 const Destinations = () => {
   const { allDestinations, isLoading } = useDestinationHook();
+  const routerNav = useRouterNav();
   const router = useRouter();
-  // const searchParams = useSearchParams();
-  // const lokasi = searchParams.get("lokasi");
-  // const destinasi = searchParams.get("destinasi");
-  // const minHarga = searchParams.get("minHarga");
-  // const maxHarga = searchParams.get("maxHarga");
+  const { lokasi, destinasi, minHarga, maxHarga } = router.query;
 
   const form = useForm<DestinationFilterType>({
     defaultValues: {
-      destinasi: "",
-      lokasi: "",
-      minHarga: 0,
-      maxHarga: 5000000,
+      destinasi: destinasi || "",
+      lokasi: lokasi || "",
+      minHarga: Number(minHarga) || 0,
+      maxHarga: Number(maxHarga) || 5000000,
     },
   });
 
@@ -89,7 +87,7 @@ const Destinations = () => {
       maxHarga: data.maxHarga.toString(),
     }).toString();
 
-    router.push(`?${query}`, { scroll: false });
+    routerNav.push(`?${query}`, { scroll: false });
     setCurrentPage(1);
   }
 
