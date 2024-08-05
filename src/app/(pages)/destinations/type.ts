@@ -1,6 +1,6 @@
 export type DestinationFilterType = {
-  destinasi: string | string[];
-  lokasi: string | string[];
+  destinasi: string;
+  lokasi: string;
   minHarga: number;
   maxHarga: number;
 };

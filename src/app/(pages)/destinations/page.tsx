@@ -1,26 +1,28 @@
 "use client";
 
-import React, { useEffect, useState } from "react";
+import React, { Suspense, useEffect, useState } from "react";
 import Input from "@/ui/Input";
 import Button from "@/ui/Button";
 import { useDestinationHook } from "@/hooks/destination-hooks";
 import { Destination } from "@prisma/client";
 import Card from "@/components/destination-card/card";
 import Skeleton from "react-loading-skeleton";
-import { useRouter as useRouterNav, useSearchParams } from "next/navigation";
+import { useRouter, useSearchParams } from "next/navigation";
 import { useForm } from "react-hook-form";
 import { Form, FormControl, FormField, FormItem } from "@/components/ui/form";
 import toast from "react-hot-toast";
 import { DestinationFilterType } from "./type";
 import { Pagination } from "@/components/ui/pagination";
 import ImageSlider from "@/components/slider/slider";
-import { useRouter } from "next/router";
 
 const Destinations = () => {
   const { allDestinations, isLoading } = useDestinationHook();
-  const routerNav = useRouterNav();
   const router = useRouter();
-  const { lokasi, destinasi, minHarga, maxHarga } = router.query;
+  const searchParams = useSearchParams();
+  const lokasi = searchParams.get("lokasi");
+  const destinasi = searchParams.get("destinasi");
+  const minHarga = searchParams.get("minHarga");
+  const maxHarga = searchParams.get("maxHarga");
 
   const form = useForm<DestinationFilterType>({
     defaultValues: {
@@ -87,7 +89,7 @@ const Destinations = () => {
       maxHarga: data.maxHarga.toString(),
     }).toString();
 
-    routerNav.push(`?${query}`, { scroll: false });
+    router.push(`?${query}`, { scroll: false });
     setCurrentPage(1);
   }
 
