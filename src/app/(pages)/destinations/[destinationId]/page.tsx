@@ -185,21 +185,21 @@ function DestinationDetails() {
               <p>{dataDestinasi.description}</p>
             </div>
 
-            {/* <OrderFormCTA
+            <OrderFormCTA
               form={form}
-              handlePayment={handlePayment}
+              // handlePayment={handlePayment}
               masaPerjalanan={masaPerjalanan}
               namaDestinasi={dataDestinasi.destinationName}
               className="lg:hidden"
-            /> */}
+            />
           </div>
-          {/* <OrderFormCTA
+          <OrderFormCTA
             form={form}
-            handlePayment={handlePayment}
+            // handlePayment={handlePayment}
             masaPerjalanan={masaPerjalanan}
             namaDestinasi={dataDestinasi.destinationName}
             className="hidden lg:block lg:col-span-4 sticky top-20"
-          /> */}
+          />
         </>
       )}
     </div>
