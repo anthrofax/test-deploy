@@ -1,5 +1,3 @@
-"use client";
-
 import React, { useEffect, useState } from "react";
 import Input from "@/ui/Input";
 import Button from "@/ui/Button";
@@ -14,9 +12,11 @@ import toast from "react-hot-toast";
 import { DestinationFilterType } from "./type";
 import { Pagination } from "@/components/ui/pagination";
 import ImageSlider from "@/components/slider/slider";
+import { GetServerSideProps } from "next";
 
-const Destinations = () => {
-  const { allDestinations, isLoading } = useDestinationHook();
+const Destinations = ({ initialDestinations }: any) => {
+  const { allDestinations = initialDestinations, isLoading } =
+    useDestinationHook();
   const router = useRouter();
   const searchParams = useSearchParams();
   const lokasi = searchParams.get("lokasi");
@@ -56,9 +56,7 @@ const Destinations = () => {
       if (
         filters.lokasi &&
         filters.lokasi !== "" &&
-        !destination.city
-          .toLowerCase()
-          .startsWith(filters.lokasi.toLowerCase())
+        !destination.city.toLowerCase().startsWith(filters.lokasi.toLowerCase())
       )
         return false;
 
@@ -244,3 +242,14 @@ const Destinations = () => {
 };
 
 export default Destinations;
+
+export const getServerSideProps: GetServerSideProps = async (context) => {
+  // Fetch data from your API or database here
+  const initialDestinations: any[] = []; // Replace with your data fetching logic
+
+  return {
+    props: {
+      initialDestinations,
+    },
+  };
+};
