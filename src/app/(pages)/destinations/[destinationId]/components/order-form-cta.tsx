@@ -36,7 +36,7 @@ import { OrderFormFieldType } from "../type";
 
 type Props = {
   form: UseFormReturn<OrderFormFieldType, any, undefined>;
-  handlePayment: (data: FieldValues) => Promise<string | undefined>;
+  // handlePayment: (data: FieldValues) => Promise<string | undefined>;
   masaPerjalanan: number;
   namaDestinasi: string;
   className?: string;
@@ -44,7 +44,7 @@ type Props = {
 
 function OrderFormCTA({
   form,
-  handlePayment,
+  // handlePayment,
   masaPerjalanan,
   className = "",
   namaDestinasi,
@@ -62,7 +62,7 @@ function OrderFormCTA({
       className={`shadow-3xl bg-primary mt-3 p-5 text-black rounded-lg overflow-scroll max-h-[500px] ${className}`}
     >
       <Form {...form}>
-        <form onSubmit={form.handleSubmit(handlePayment)} className="space-y-4">
+        <form onSubmit={form.handleSubmit(() => {})} className="space-y-4">
           <FormField
             control={form.control}
             name="nama"

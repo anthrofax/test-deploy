@@ -143,7 +143,7 @@ function DestinationDetails() {
 
   return (
     <div className="grid grid-cols-12 relative py-20">
-      {/* {isLoading ? (
+      {isLoading ? (
         <Spinner />
       ) : (
         <>
@@ -201,7 +201,7 @@ function DestinationDetails() {
             className="hidden lg:block lg:col-span-4 sticky top-20"
           />
         </>
-      )} */}
+      )}
     </div>
   );
 }
