@@ -34,6 +34,21 @@ import { Rupiah } from "@/utils/format-currency";
 import Skeleton from "react-loading-skeleton";
 import { OrderFormFieldType } from "../type";
 
+export const lokasiPenjemputan = [
+  {
+    label: "Yogyakarta",
+    value: "yogyakarta",
+  },
+  {
+    label: "Wonosobo",
+    value: "wonosobo",
+  },
+  {
+    label: "Magelang",
+    value: "magelang",
+  },
+];
+
 type Props = {
   form: UseFormReturn<OrderFormFieldType, any, undefined>;
   // handlePayment: (data: FieldValues) => Promise<string | undefined>;
@@ -123,17 +138,17 @@ function OrderFormCTA({
                     </SelectTrigger>
                   </FormControl>
                   <SelectContent>
-                    {/* {lokasiPenjemputan.map((lokasi, i) => (
+                    {lokasiPenjemputan.map((lokasi, i) => (
                       <SelectItem value={lokasi.value} key={i}>
                         {lokasi.label}
                       </SelectItem>
-                    ))} */}
+                    ))}
                   </SelectContent>
                 </Select>
-                {/* <FormDescription className="text-slate-300">
+                <FormDescription className="text-slate-300">
                   Pilih lokasi penjemputan anda diantara{" "}
                   {lokasiPenjemputan.length} lokasi tersebut
-                </FormDescription> */}
+                </FormDescription>
                 <FormMessage />
               </FormItem>
             )}

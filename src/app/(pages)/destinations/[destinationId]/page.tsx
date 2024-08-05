@@ -20,6 +20,43 @@ import OrderFormCTA from "./components/order-form-cta";
 import { schema } from "./schema";
 import { OrderFormFieldType } from "./type";
 
+import { MdEmojiTransportation } from "react-icons/md";
+import { RiGuideLine, RiSteering2Line } from "react-icons/ri";
+import { IoFastFood, IoTicketOutline } from "react-icons/io5";
+import { GiPirateCoat } from "react-icons/gi";
+import { FaSquareParking } from "react-icons/fa6";
+
+const fasilitas = [
+  {
+    icon: MdEmojiTransportation,
+    label: "Transportasi",
+  },
+  {
+    icon: RiSteering2Line,
+    label: "Driver",
+  },
+  {
+    icon: FaSquareParking,
+    label: "Parkir",
+  },
+  {
+    icon: IoTicketOutline,
+    label: "Ticketing",
+  },
+  {
+    icon: RiGuideLine,
+    label: "Tour Guide",
+  },
+  {
+    icon: IoFastFood,
+    label: "Welcome Snack",
+  },
+  {
+    icon: GiPirateCoat,
+    label: "Jas Hujan 1x Pakai",
+  },
+];
+
 function DestinationDetails() {
   let { destinationId } = useParams();
   if (Array.isArray(destinationId)) destinationId = destinationId[0];
@@ -170,13 +207,13 @@ function DestinationDetails() {
               </h3>
             </div>
 
-            {/* <div className="flex flex-wrap gap-2">
+            <div className="flex flex-wrap gap-2">
               {fasilitas.map((fasilitasItem, i) => (
                 <Badge icon={fasilitasItem.icon} size={20} key={i}>
                   {fasilitasItem.label}
                 </Badge>
               ))}
-            </div> */}
+            </div>
 
             <div>
               <h3 className="text-xl font-semibold mb-2">
