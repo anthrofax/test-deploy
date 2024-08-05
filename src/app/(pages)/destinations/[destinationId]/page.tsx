@@ -10,7 +10,7 @@ import { useParams } from "next/navigation";
 import { Badge } from "flowbite-react";
 import { Rupiah } from "@/utils/format-currency";
 import ImageGallery from "@/components/image-gallery/image-gallery";
-import { experience, fasilitas, penginapan } from "@/data/data";
+// import { experience, fasilitas, penginapan } from "@/data/data";
 import { FaLocationDot } from "react-icons/fa6";
 import { zodResolver } from "@hookform/resolvers/zod";
 import { FieldValues, useForm, useWatch } from "react-hook-form";
@@ -143,57 +143,65 @@ function DestinationDetails() {
 
   return (
     <div className="grid grid-cols-12 relative py-20">
-      <div className="col-span-12 lg:col-span-8 px-3 grid gap-3 ">
-        <ImageGallery photos={dataDestinasi.imageUrls} />
-        <div className="mt-3 flex justify-between">
-          <div>
-            <h1 className="text-3xl font-semibold">
-              {dataDestinasi.destinationName}
-            </h1>
+      {isLoading ? (
+        <Spinner />
+      ) : (
+        <>
+          <div className="col-span-12 lg:col-span-8 px-3 grid gap-3 ">
+            <ImageGallery photos={dataDestinasi.imageUrls} />
+            <div className="mt-3 flex justify-between">
+              <div>
+                <h1 className="text-3xl font-semibold">
+                  {dataDestinasi.destinationName}
+                </h1>
 
-            <div className="flex gap-2 items-center mt-1">
-              <FaLocationDot />
-              <span className="capitalize">{dataDestinasi.city}</span>
+                <div className="flex gap-2 items-center mt-1">
+                  <FaLocationDot />
+                  <span className="capitalize">{dataDestinasi.city}</span>
+                </div>
+
+                <h3 className="font-semibold text-2xl hidden lg:block mt-6">
+                  {Rupiah.format(dataDestinasi.price)}
+                </h3>
+              </div>
+
+              <h3 className="font-semibold text-2xl lg:hidden">
+                {Rupiah.format(dataDestinasi.price)}
+              </h3>
             </div>
 
-            <h3 className="font-semibold text-2xl hidden lg:block mt-6">
-              {Rupiah.format(dataDestinasi.price)}
-            </h3>
-          </div>
+            {/* <div className="flex flex-wrap gap-2">
+              {fasilitas.map((fasilitasItem, i) => (
+                <Badge icon={fasilitasItem.icon} size={20} key={i}>
+                  {fasilitasItem.label}
+                </Badge>
+              ))}
+            </div> */}
 
-          <h3 className="font-semibold text-2xl lg:hidden">
-            {Rupiah.format(dataDestinasi.price)}
-          </h3>
-        </div>
+            <div>
+              <h3 className="text-xl font-semibold mb-2">
+                Deskripsi Destinasi
+              </h3>
+              <p>{dataDestinasi.description}</p>
+            </div>
 
-        <div className="flex flex-wrap gap-2">
-          {fasilitas.map((fasilitasItem, i) => (
-            <Badge icon={fasilitasItem.icon} size={20} key={i}>
-              {fasilitasItem.label}
-            </Badge>
-          ))}
-        </div>
-
-        <div>
-          <h3 className="text-xl font-semibold mb-2">Deskripsi Destinasi</h3>
-          <p>{dataDestinasi.description}</p>
-        </div>
-
-        {/* <OrderFormCTA
+            {/* <OrderFormCTA
               form={form}
               handlePayment={handlePayment}
               masaPerjalanan={masaPerjalanan}
               namaDestinasi={dataDestinasi.destinationName}
               className="lg:hidden"
             /> */}
-      </div>
-      {/* <OrderFormCTA
+          </div>
+          {/* <OrderFormCTA
             form={form}
             handlePayment={handlePayment}
             masaPerjalanan={masaPerjalanan}
             namaDestinasi={dataDestinasi.destinationName}
             className="hidden lg:block lg:col-span-4 sticky top-20"
           /> */}
+        </>
+      )}
     </div>
   );
 }
