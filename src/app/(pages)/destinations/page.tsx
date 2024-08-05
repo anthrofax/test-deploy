@@ -18,34 +18,34 @@ import ImageSlider from "@/components/slider/slider";
 const Destinations = () => {
   // const { allDestinations, isLoading } = useDestinationHook();
   const router = useRouter();
-  const searchParams = useSearchParams();
-  const lokasi = searchParams.get("lokasi");
-  const destinasi = searchParams.get("destinasi");
-  const minHarga = searchParams.get("minHarga");
-  const maxHarga = searchParams.get("maxHarga");
+  // const searchParams = useSearchParams();
+  // const lokasi = searchParams.get("lokasi");
+  // const destinasi = searchParams.get("destinasi");
+  // const minHarga = searchParams.get("minHarga");
+  // const maxHarga = searchParams.get("maxHarga");
 
-  const form = useForm<DestinationFilterType>({
-    defaultValues: {
-      destinasi: destinasi || "",
-      lokasi: lokasi || "",
-      minHarga: Number(minHarga) || 0,
-      maxHarga: Number(maxHarga) || 5000000,
-    },
-  });
+  // const form = useForm<DestinationFilterType>({
+  //   defaultValues: {
+  //     destinasi: destinasi || "",
+  //     lokasi: lokasi || "",
+  //     minHarga: Number(minHarga) || 0,
+  //     maxHarga: Number(maxHarga) || 5000000,
+  //   },
+  // });
 
-  useEffect(() => {
-    if (Object.keys(form.formState.errors).length > 0) {
-      console.log(form.formState.errors);
+  // useEffect(() => {
+  //   if (Object.keys(form.formState.errors).length > 0) {
+  //     console.log(form.formState.errors);
 
-      (
-        Object.keys(
-          form.formState.errors
-        ) as (keyof typeof form.formState.errors)[]
-      ).forEach((key) => {
-        toast.error(`${form.formState.errors[key]?.message as string}`);
-      });
-    }
-  }, [form, form.formState.errors]);
+  //     (
+  //       Object.keys(
+  //         form.formState.errors
+  //       ) as (keyof typeof form.formState.errors)[]
+  //     ).forEach((key) => {
+  //       toast.error(`${form.formState.errors[key]?.message as string}`);
+  //     });
+  //   }
+  // }, [form, form.formState.errors]);
 
   function filterDestinations(
     destinations: Destination[],
@@ -126,7 +126,7 @@ const Destinations = () => {
       <ImageSlider images={sliderImages} />
 
       <div className="relative z-20 -mt-12 h-full w-full flex flex-col items-center">
-        <Form {...form}>
+        {/* <Form {...form}>
           <form
             onSubmit={form.handleSubmit(onSubmit)}
             className="border w-full md:w-2/3 p-4 md:px-4 py-6 rounded-xl bg-blue-600 text-slate-500 flex flex-col md:flex-row justify-between items-center gap-4 md:gap-0"
@@ -214,7 +214,7 @@ const Destinations = () => {
               className="px-6 py-2 text-[20px] bg-white text-blue-600 rounded-xl transition-all hover:bg-[#efefef]"
             />
           </form>
-        </Form>
+        </Form> */}
         <div className="w-full flex flex-wrap justify-center items-center gap-14 flex-grow-1 py-20">
           {/* {isLoading
             ? Array.from({ length: 5 }).map((_, idx) => (
