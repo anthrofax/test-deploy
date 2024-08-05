@@ -54,54 +54,54 @@ function DestinationDetails() {
     defaultValue: 1,
   });
 
-  async function handlePayment(data: FieldValues) {
-    try {
-      if (!dataDestinasi) return toast.error("Data destinasi tidak ditemukan");
+  // async function handlePayment(data: FieldValues) {
+  //   try {
+  //     if (!dataDestinasi) return toast.error("Data destinasi tidak ditemukan");
 
-      if (Number(data.qty) > 2 && data.penginapan === "sikembang")
-        return toast.error(
-          "Penginapan di Sikembang Glamping hanya dapat menampung maksimum 2 orang"
-        );
+  //     if (Number(data.qty) > 2 && data.penginapan === "sikembang")
+  //       return toast.error(
+  //         "Penginapan di Sikembang Glamping hanya dapat menampung maksimum 2 orang"
+  //       );
 
-      toast.success("Data berhasil terkirim");
-      console.log(data);
-      let totalBiaya = 0;
+  //     toast.success("Data berhasil terkirim");
+  //     console.log(data);
+  //     let totalBiaya = 0;
 
-      const biayaExperience = experience.reduce((acc, experienceItem) => {
-        if (data.experience.includes(experienceItem.value))
-          return acc + experienceItem.harga;
+  //     const biayaExperience = experience.reduce((acc, experienceItem) => {
+  //       if (data.experience.includes(experienceItem.value))
+  //         return acc + experienceItem.harga;
 
-        return 0;
-      }, 0);
+  //       return 0;
+  //     }, 0);
 
-      const biayaPenginapan =
-        penginapan.find(
-          (penginapanItem) => penginapanItem.value === data.penginapan
-        )?.harga || 0;
+  //     const biayaPenginapan =
+  //       penginapan.find(
+  //         (penginapanItem) => penginapanItem.value === data.penginapan
+  //       )?.harga || 0;
 
-      totalBiaya =
-        dataDestinasi.price * Number(data.qty) +
-        biayaExperience +
-        biayaPenginapan * Number(data.masaPerjalanan);
+  //     totalBiaya =
+  //       dataDestinasi.price * Number(data.qty) +
+  //       biayaExperience +
+  //       biayaPenginapan * Number(data.masaPerjalanan);
 
-      await redirectToCheckout({
-        destinationId: dataDestinasi.destinationId,
-        experience: data.experience,
-        hargaDestinasi: dataDestinasi.price,
-        lokasiPenjemputan: data.lokasiPenjemputan,
-        masaPerjalanan: data.masaPerjalanan,
-        nama: data.nama,
-        namaDestinasi: dataDestinasi.destinationName,
-        nomorHp: data.nomorHp,
-        penginapan: data.penginapan,
-        qty: data.qty,
-        tanggalPerjalanan: data.tanggalPerjalanan,
-        totalBiaya,
-      });
-    } catch (err) {
-      toast.error("Pembayaran gagal");
-    }
-  }
+  //     await redirectToCheckout({
+  //       destinationId: dataDestinasi.destinationId,
+  //       experience: data.experience,
+  //       hargaDestinasi: dataDestinasi.price,
+  //       lokasiPenjemputan: data.lokasiPenjemputan,
+  //       masaPerjalanan: data.masaPerjalanan,
+  //       nama: data.nama,
+  //       namaDestinasi: dataDestinasi.destinationName,
+  //       nomorHp: data.nomorHp,
+  //       penginapan: data.penginapan,
+  //       qty: data.qty,
+  //       tanggalPerjalanan: data.tanggalPerjalanan,
+  //       totalBiaya,
+  //     });
+  //   } catch (err) {
+  //     toast.error("Pembayaran gagal");
+  //   }
+  // }
 
   useEffect(() => {
     if (Object.keys(form.formState.errors).length > 0) {
@@ -143,65 +143,57 @@ function DestinationDetails() {
 
   return (
     <div className="grid grid-cols-12 relative py-20">
-      {/* {isLoading ? (
-        <Spinner />
-      ) : (
-        <>
-          <div className="col-span-12 lg:col-span-8 px-3 grid gap-3 ">
-            <ImageGallery photos={dataDestinasi.imageUrls} />
-            <div className="mt-3 flex justify-between">
-              <div>
-                <h1 className="text-3xl font-semibold">
-                  {dataDestinasi.destinationName}
-                </h1>
+      <div className="col-span-12 lg:col-span-8 px-3 grid gap-3 ">
+        <ImageGallery photos={dataDestinasi.imageUrls} />
+        <div className="mt-3 flex justify-between">
+          <div>
+            <h1 className="text-3xl font-semibold">
+              {dataDestinasi.destinationName}
+            </h1>
 
-                <div className="flex gap-2 items-center mt-1">
-                  <FaLocationDot />
-                  <span className="capitalize">{dataDestinasi.city}</span>
-                </div>
-
-                <h3 className="font-semibold text-2xl hidden lg:block mt-6">
-                  {Rupiah.format(dataDestinasi.price)}
-                </h3>
-              </div>
-
-              <h3 className="font-semibold text-2xl lg:hidden">
-                {Rupiah.format(dataDestinasi.price)}
-              </h3>
+            <div className="flex gap-2 items-center mt-1">
+              <FaLocationDot />
+              <span className="capitalize">{dataDestinasi.city}</span>
             </div>
 
-            <div className="flex flex-wrap gap-2">
-              {fasilitas.map((fasilitasItem, i) => (
-                <Badge icon={fasilitasItem.icon} size={20} key={i}>
-                  {fasilitasItem.label}
-                </Badge>
-              ))}
-            </div>
+            <h3 className="font-semibold text-2xl hidden lg:block mt-6">
+              {Rupiah.format(dataDestinasi.price)}
+            </h3>
+          </div>
 
-            <div>
-              <h3 className="text-xl font-semibold mb-2">
-                Deskripsi Destinasi
-              </h3>
-              <p>{dataDestinasi.description}</p>
-            </div>
+          <h3 className="font-semibold text-2xl lg:hidden">
+            {Rupiah.format(dataDestinasi.price)}
+          </h3>
+        </div>
 
-            <OrderFormCTA
+        <div className="flex flex-wrap gap-2">
+          {fasilitas.map((fasilitasItem, i) => (
+            <Badge icon={fasilitasItem.icon} size={20} key={i}>
+              {fasilitasItem.label}
+            </Badge>
+          ))}
+        </div>
+
+        <div>
+          <h3 className="text-xl font-semibold mb-2">Deskripsi Destinasi</h3>
+          <p>{dataDestinasi.description}</p>
+        </div>
+
+        {/* <OrderFormCTA
               form={form}
               handlePayment={handlePayment}
               masaPerjalanan={masaPerjalanan}
               namaDestinasi={dataDestinasi.destinationName}
               className="lg:hidden"
-            />
-          </div>
-          <OrderFormCTA
+            /> */}
+      </div>
+      {/* <OrderFormCTA
             form={form}
             handlePayment={handlePayment}
             masaPerjalanan={masaPerjalanan}
             namaDestinasi={dataDestinasi.destinationName}
             className="hidden lg:block lg:col-span-4 sticky top-20"
-          />
-        </>
-      )} */}
+          /> */}
     </div>
   );
 }
