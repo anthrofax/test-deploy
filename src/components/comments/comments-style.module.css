@@ -1,0 +1,6 @@
+.gridAutoFlowDense {
+  /* grid-auto-: minmax(100px, auto);  */
+  display: grid;
+  grid-auto-flow: dense;
+  grid-template-rows: auto;
+}

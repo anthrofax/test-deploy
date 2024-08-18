@@ -1,0 +1,135 @@
+generator client {
+  provider = "prisma-client-js"
+}
+
+datasource db {
+  provider = "mongodb"
+  url      = env("DATABASE_URL")
+}
+
+model User {
+  id           String   @id @default(auto()) @map("_id") @db.ObjectId
+  username     String   @unique
+  displayName  String   @default("Unknown")
+  email        String   @unique
+  password     String
+  phone        String?
+  profileImage String   @default("https://res.cloudinary.com/dmc0cvmf5/image/upload/v1721879584/empty-profile_d7fhjp.webp")
+  isAdmin      Boolean  @default(false)
+  createdAt    DateTime @default(now())
+  updatedAt    DateTime @updatedAt
+
+  orders        Order[]
+  packageOrders PackageOrder[]
+}
+
+model Destination {
+  destinationId   String   @id @default(auto()) @map("_id") @db.ObjectId
+  destinationName String
+  description     String
+  city            String
+  price           Int
+  imageUrls       String[]
+  createdAt       DateTime @default(now())
+  updatedAt       DateTime @updatedAt
+
+  packageOrders PackageOrderDestination[]
+  orders        Order[]
+}
+
+model Experience {
+  id String @id @default(auto()) @map("_id") @db.ObjectId
+
+  namaExperience String
+  biaya          Int
+  deskripsi      String
+  createdAt      DateTime @default(now())
+  updatedAt      DateTime @updatedAt
+
+  orderExperiences        OrderExperience[]
+  packageOrderExperiences PackageOrderExperience[]
+}
+
+model Penginapan {
+  id String @id @default(auto()) @map("_id") @db.ObjectId
+
+  namaPenginapan String
+  deskripsi      String
+  biaya          Int
+  createdAt      DateTime @default(now())
+  updatedAt      DateTime @updatedAt
+
+  orders        Order[]
+  packageOrders PackageOrder[]
+}
+
+model Order {
+  id                String   @id @default(auto()) @map("_id") @db.ObjectId
+  nama              String
+  nomorHp           String
+  lokasiPenjemputan String
+  masaPerjalanan    Int
+  tanggalPerjalanan DateTime
+  qty               Int
+  totalBiaya        Int
+  experience        String[] @default([])
+  createdAt         DateTime @default(now())
+  updatedAt         DateTime @updatedAt
+
+  destinationId String @db.ObjectId
+  penginapanId  String @default("") @db.ObjectId
+  userId        String @db.ObjectId
+
+  user        User              @relation(fields: [userId], references: [id], onDelete: Cascade)
+  destination Destination       @relation(fields: [destinationId], references: [destinationId], onDelete: Cascade)
+  experiences OrderExperience[]
+  penginapan  Penginapan?       @relation(fields: [penginapanId], references: [id], onDelete: Cascade)
+}
+
+model PackageOrder {
+  id                String   @id @default(auto()) @map("_id") @db.ObjectId
+  nama              String[]
+  nomorHp           String
+  lokasiPenjemputan String
+  masaPerjalanan    Int
+  tanggalPerjalanan DateTime
+  totalBiaya        Int
+  experience        String[] @default([])
+  createdAt         DateTime @default(now())
+  updatedAt         DateTime @updatedAt
+
+  penginapanId String @default("") @db.ObjectId
+  userId       String @db.ObjectId
+
+  user         User                      @relation(fields: [userId], references: [id], onDelete: Cascade)
+  destinations PackageOrderDestination[]
+  experiences  PackageOrderExperience[]
+  penginapan   Penginapan?               @relation(fields: [penginapanId], references: [id], onDelete: Cascade)
+}
+
+model PackageOrderDestination {
+  id             String @id @default(auto()) @map("_id") @db.ObjectId
+  packageOrderId String @db.ObjectId
+  destinationId  String @db.ObjectId
+
+  destinations Destination  @relation(fields: [destinationId], references: [destinationId], onDelete: Cascade)
+  orders       PackageOrder @relation(fields: [packageOrderId], references: [id], onDelete: Cascade)
+}
+
+model OrderExperience {
+  id           String @id @default(auto()) @map("_id") @db.ObjectId
+  orderId      String @db.ObjectId
+  experienceId String @db.ObjectId
+
+  experiences Experience @relation(fields: [experienceId], references: [id], onDelete: Cascade)
+  orders      Order      @relation(fields: [orderId], references: [id], onDelete: Cascade)
+}
+
+model PackageOrderExperience {
+  id             String @id @default(auto()) @map("_id") @db.ObjectId
+  packageOrderId String @db.ObjectId
+  experienceId   String @db.ObjectId
+
+  experiences Experience   @relation(fields: [experienceId], references: [id], onDelete: Cascade)
+  orders      PackageOrder @relation(fields: [packageOrderId], references: [id], onDelete: Cascade)
+}
